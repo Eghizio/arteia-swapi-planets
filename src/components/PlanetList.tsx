@@ -2,15 +2,18 @@ import React, { useState, useEffect } from "react";
 
 const PlanetList = () => {
     const [planetNames, setPlanetNames] = useState<string[]>([]);
-    
+    const [expectedPlanetCount, setExpectedPlanetCount] = useState<number>();
     useEffect(() => {
         const fetchPage = (url:string) => {
             fetch(url)
                 .catch((err:Error) => console.error(err))
                 .then((res:any) => res.json())
                 .then(data => {
+                    if(expectedPlanetCount === undefined) setExpectedPlanetCount(data.count);
+                        
                     const names: string[] = data.results.map((p:{name:string}) => p.name);
                     setPlanetNames(prev => [...prev,...names]);
+
                     if(data.next) fetchPage(data.next);
                 });
         };
@@ -31,7 +34,7 @@ const PlanetList = () => {
 
     return (
         <div>
-            {!(planetNames.length > 0)? <Loading/> :
+            {(planetNames.length !== expectedPlanetCount)? <Loading/> :
                 planetNames.map((planetName, i) => 
                     <Planet key={i} name={planetName}/>
                 )

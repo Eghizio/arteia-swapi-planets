@@ -8,14 +8,11 @@
   border-radius: 5px;
   color: #282c34;
   background-color: skyblue;
+  animation: fadein 2s;
 }
 
 .planet:nth-child(odd) {
   background-color: deepskyblue;
-}
-
-.fadein {
-  animation: fadein 2s;
 }
 
 @keyframes fadein {
