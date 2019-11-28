@@ -3,13 +3,14 @@ import React, { useState, useEffect } from "react";
 const PlanetList = () => {
     const [planetNames, setPlanetNames] = useState<string[]>([]);
     useEffect(() => {
-        fetch("/api/planets") //proxy "https://swapi.co"
-            .catch((err:Error) => console.error(err))
-            .then((res:any) => res.json())
-            .then(data => {
-                const names: string[] = data.results.map((p:{name:string}) => p.name);
-                setPlanetNames([...names]);
-            });
+        for(let i=1; i<=7; i++)
+            fetch(`/api/planets/?page=${i}`) //proxy "https://swapi.co"
+                .catch((err:Error) => console.error(err))
+                .then((res:any) => res.json())
+                .then(data => {
+                    const names: string[] = data.results.map((p:{name:string}) => p.name);
+                    setPlanetNames(prev => [...prev,...names]);
+                });
     },[]);
 
     interface PlanetProps { name: string };
@@ -22,6 +23,8 @@ const PlanetList = () => {
     };
 
     const Loading: React.FC = () => <div>loading . . .</div>;
+
+    if(planetNames.length === 61) console.log(planetNames);
 
     return (
         <div>
