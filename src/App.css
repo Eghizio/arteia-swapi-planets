@@ -2,21 +2,35 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+.planet {
+  width: 300px;
+  margin: 2px auto;
+  border-radius: 5px;
+  color: #282c34;
+  background-color: skyblue;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.planet:nth-child(odd) {
+  background-color: deepskyblue;
 }
 
-.App-link {
-  color: #09d3ac;
+.fadein {
+  animation: fadein 2s;
+}
+
+@keyframes fadein {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.loading {
+  padding-top: 50px;
+  animation: shake 1s infinite;
+}
+
+@keyframes shake {
+    10%, 90% { transform: translate(-1px, 0 ); }
+    20%, 80% { transform: translate(2px, 0); }
+    30%, 50%, 70% { transform: translate(-4px, 0); }
+    40%, 60% { transform: translate(4px, 0); }
 }
